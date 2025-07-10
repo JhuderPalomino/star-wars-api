@@ -55,7 +55,7 @@ export class MySqlPersonRepository extends MySqlRepository implements DataBaseRe
     }
 
     await redisClient.set(cacheKey, JSON.stringify(response));
-    return response;
+    return response.map((person: any) => Person.fromPrimitive(person));
   }
 
   async save(person: Person): Promise<void> {
