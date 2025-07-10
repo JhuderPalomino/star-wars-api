@@ -1,10 +1,10 @@
 import { Request, Response } from 'lambda-api';
 import { Controller } from './Controller';
-import { MySqlPersonRepository } from '../../../Context/Mooc/Person/Infraestructure/Persistence/MySqlPersonRepository';
-import { MySqlFactory } from '../../../Context/Shared/Infraestructure/Persistence/MySql/MySqlFactory';
-import { MySqlConfigFactory } from '../../../Context/Mooc/Shared/Infraestructure/Persistence/MySql/MySqlConfigFactory';
+import { MySqlPersonRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/MySqlPersonRepository';
+import { MySqlFactory } from '../../../Context/Shared/Infrastructure/Persistence/MySql/MySqlFactory';
+import { MySqlConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/MySql/MySqlConfigFactory';
 import { PersonCreator } from '../../../Context/Mooc/Person/Application/Create/PersonCreator';
-import { BuildResponse } from '../../../Context/Mooc/Shared/Infraestructure/Response/BuildResponse';
+import { BuildResponse } from '../../../Context/Mooc/Shared/Infrastructure/Response/BuildResponse';
 import httpStatus from 'http-status';
 
 type CreatePersonRequest = Request & {

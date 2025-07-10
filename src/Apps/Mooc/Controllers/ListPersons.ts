@@ -1,9 +1,9 @@
 import { Controller } from './Controller';
 import { Request, Response } from 'lambda-api';
-import { BuildResponse } from '../../../Context/Mooc/Shared/Infraestructure/Response/BuildResponse';
-import { MySqlPersonRepository } from '../../../Context/Mooc/Person/Infraestructure/Persistence/MySqlPersonRepository';
-import { MySqlFactory } from '../../../Context/Shared/Infraestructure/Persistence/MySql/MySqlFactory';
-import { MySqlConfigFactory } from '../../../Context/Mooc/Shared/Infraestructure/Persistence/MySql/MySqlConfigFactory';
+import { BuildResponse } from '../../../Context/Mooc/Shared/Infrastructure/Response/BuildResponse';
+import { MySqlPersonRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/MySqlPersonRepository';
+import { MySqlFactory } from '../../../Context/Shared/Infrastructure/Persistence/MySql/MySqlFactory';
+import { MySqlConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/MySql/MySqlConfigFactory';
 
 import httpStatus from 'http-status';
 import { PaginatePersons } from '../../../Context/Mooc/Person/Application/Paginate/PaginatePersons';
