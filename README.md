@@ -42,11 +42,11 @@
 ---
 ## Documentación
 
-https://documenter.getpostman.com/view/
+https://documenter.getpostman.com/view/14272090/2sB34fkg25
 
 ## Repositorio
 
-https://github.com/JhuderPalomino/start-war-api.git
+https://github.com/JhuderPalomino/star-wars-api.git
 
 # EndPoints
 
