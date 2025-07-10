@@ -14,7 +14,7 @@ export class Server {
 
   private setRoutes() {
     this.app.register(pathPerson, {
-      prefix: '/',
+      prefix: '/person',
     });
     this.app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
       res.header('Access-Control-Allow-Origin', '*');
