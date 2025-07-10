@@ -54,16 +54,16 @@ https://github.com/JhuderPalomino/star-wars-api.git
 
 ```Json
 {
-  "name": "Jhuder Palomino",
-  "birth_year": "19BBY",
-  "eye_color": "dark",
-  "gender": "male",
-  "hair_color": "dar",
-  "height": "170",
-  "mass": "70",
-  "skin_color": "fair",
-  "created": "2025-09-07T08:50:51.000Z",
-  "edited": "2025-09-07T08:50:51.000Z"
+   "nombre": "Jhuder Palomino",
+   "anio_nacimiento": "64BBY",
+   "color_ojos": "dark",
+   "genero": "male",
+   "color_cabello": "grey",
+   "altura": "179",
+   "masa": "120",
+   "color_piel": "fair",
+   "fecha_creacion": "2025-07-10T16:26:56.000Z",
+   "fecha_actualizacion": "2025-07-20T21:17:50.000Z"
 }
 ```
 
