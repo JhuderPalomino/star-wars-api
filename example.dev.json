@@ -1,0 +1,10 @@
+{
+  "DATABASE_NAME": "starwarsdb",
+  "DATABASE_HOST": "127.0.0.1",
+  "DATABASE_PASSWORD": "root",
+  "DATABASE_PORT": "3306",
+  "DATABASE_USER": "root",
+  "CACHE_USERNAME": "default",
+  "CACHE_PASSWORD": "xxxFsAaTdHLO8nJA",
+  "CACHE_URL": "redis-xxxx.xxxx.us-central1-1.gce.cloud.xxxx.com:16959"
+}

@@ -1,0 +1,102 @@
+service: start-war
+app: start-war-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  lambdaHashingVersion: 20201221
+  environment: ${file(env.${opt:stage, self:provider.stage}.json)}
+  stage: ${opt:stage}
+  apiGateway:
+    shouldStartNameWithService: true
+  region: ${opt:region}
+
+package:
+  exclude:
+    - scripts/**
+    - node_modules/**
+    - layers/**
+    - package.json
+    - package-lock.json
+    - '*.md'
+    - 'env.*'
+    - test/**
+    - src/**
+    - 'example.*'
+    - jest.config.js
+    - tsconfig.json
+    - coverage/**
+    - .tmp
+    - .serverless
+
+layers:
+  StartWarLambdaLayer:
+    name: ${self:service}-${self:provider.stage}-dependencies
+    path: layers
+    description: 'Start War Lambda Layer with Node.js dependencies'
+    compatibleRuntimes:
+      - nodejs20.x
+    package:
+      exclude:
+        - '!nodejs/node_modules/**'
+
+functions:
+  SearchPersonByName:
+    handler: dist/Handlers/SearchPersonByName.handler
+    timeout: 30
+    memorySize: 256
+    layers:
+      - { Ref: StartWarLambdaLayerLambdaLayer }
+    events:
+      - http:
+          path: /fusionados
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Amz-Security-Card
+            allowCredentials: false
+
+  CreatePerson:
+    handler: dist/Handlers/CreatePerson.handler
+    timeout: 30
+    memorySize: 256
+    layers:
+      - { Ref: StartWarLambdaLayerLambdaLayer }
+    events:
+      - http:
+          path: /almacenar
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Amz-Security-Card
+            allowCredentials: false
+  PersonList:
+    handler: dist/Handlers/PersonList.handler
+    timeout: 30
+    memorySize: 256
+    layers:
+      - { Ref: StartWarLambdaLayerLambdaLayer }
+    events:
+      - http:
+          path: /historial
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Amz-Security-Card
+            allowCredentials: false
+
+plugins:
+  - serverless-offline
