@@ -6,6 +6,7 @@ scripts
 .idea
 .vscode
 data
+dist
 
 ### Node ###
 # Logs
