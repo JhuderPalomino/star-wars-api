@@ -7,7 +7,7 @@ export class PaginatePersons {
 
   async run(page: number, perPage: number) {
     const personsFound = await this.personRepository.findAll(page, perPage);
-    console.log('personsFound', personsFound)
+
     if (personsFound) {
       return {
         data: personsFound.map(person => person.toPrimitivesSpanish()),

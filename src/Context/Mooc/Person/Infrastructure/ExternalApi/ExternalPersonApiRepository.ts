@@ -10,8 +10,6 @@ export class ExternalPersonApiRepository extends SwapiRepository implements Exte
       return null;
     }
 
-    console.log('response findByName', response[0])
-
     return Person.fromPrimitive({
       name: response[0].name,
       edited: response[0].edited,
