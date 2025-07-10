@@ -1,0 +1,34 @@
+import { Controller } from './Controller';
+import { Request, Response } from 'lambda-api';
+import { BuildResponse } from '../../../Context/Mooc/Shared/Infraestructure/Response/BuildResponse';
+import { MySqlPersonRepository } from '../../../Context/Mooc/Person/Infraestructure/Persistence/MySqlPersonRepository';
+import { MySqlFactory } from '../../../Context/Shared/Infraestructure/Persistence/MySql/MySqlFactory';
+import { MySqlConfigFactory } from '../../../Context/Mooc/Shared/Infraestructure/Persistence/MySql/MySqlConfigFactory';
+import { SearchPersonByName } from '../../../Context/Mooc/Person/Application/Search/SearchPersonByName';
+import { PersonName } from '../../../Context/Mooc/Person/Domain/PersonName';
+import { ExternalPersonApiRepository } from '../../../Context/Mooc/Person/Infraestructure/ExternalApi/ExternalPersonApiRepository';
+import { SwapiFactory } from '../../../Context/Shared/Infraestructure/Persistence/Swapi/SwapiFactory';
+import { SwapiConfigFactory } from '../../../Context/Mooc/Shared/Infraestructure/Persistence/Swapi/SwapiConfigFactory';
+import httpStatus from 'http-status';
+
+export class SearchPerson implements Controller {
+  async run(req: Request, res: Response): Promise<void> {
+    try {
+      const personRepository = new MySqlPersonRepository(
+        MySqlFactory.createClient(MySqlConfigFactory.createConfig()),
+      );
+      const personExternalRepository = new ExternalPersonApiRepository(
+        SwapiFactory.createClient(SwapiConfigFactory.createConfig()),
+      );
+      const searchPersonByName = new SearchPersonByName(personRepository, personExternalRepository);
+      const response = await searchPersonByName.run(new PersonName(req.query.name || ''));
+      return BuildResponse.run(response, res);
+    } catch (e: Error | any) {
+      console.error('> SearchPerson: ', e);
+      return BuildResponse.run(
+        { status: e.status || httpStatus.BAD_REQUEST, message: e.message },
+        res,
+      );
+    }
+  }
+}
