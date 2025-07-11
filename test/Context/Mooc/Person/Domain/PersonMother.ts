@@ -28,16 +28,16 @@ export class PersonMother {
 
   static invalidBirthYear(): any {
     return {
-      nombre: PersonNameMother.random().value,
-      anio_nacimiento: PersonBirthYearMother.invalid(),
-      color_ojos: PersonEyeColorMother.random().value,
-      genero: PersonGenderMother.random().value,
-      color_cabello: PersonHairColorMother.random().value,
-      altura: PersonHeightMother.random().value,
-      masa: PersonMassMother.random().value,
-      color_piel: PersonSkinColorMother.random().value,
-      fecha_creacion: PersonCreatedMother.random().value,
-      fecha_actualizacion: PersonEditedMother.random().value,
+      name: PersonNameMother.random().value,
+      birth_year: PersonBirthYearMother.invalid(),
+      eye_color: PersonEyeColorMother.random().value,
+      gender: PersonGenderMother.random().value,
+      hair_color: PersonHairColorMother.random().value,
+      height: PersonHeightMother.random().value,
+      mass: PersonMassMother.random().value,
+      skin_color: PersonSkinColorMother.random().value,
+      created: PersonCreatedMother.random().value,
+      edited: PersonEditedMother.random().value,
     };
   }
 }
