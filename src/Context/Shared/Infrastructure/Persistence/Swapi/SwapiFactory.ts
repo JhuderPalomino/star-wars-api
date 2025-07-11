@@ -15,7 +15,7 @@ export class SwapiFactory {
       return SwapiFactory.instance;
     } catch (e) {
       console.log('>Error Axios: ', e);
-      throw new Error('Internar error');
+      throw new Error('Axios error');
     }
   }
 }

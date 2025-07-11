@@ -14,7 +14,6 @@ export class MySqlFactory {
           password: config.password,
           port: config.port,
         });
-
       }
 
       return MySqlFactory.instance;
