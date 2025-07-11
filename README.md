@@ -12,7 +12,6 @@
 
 ## Desarrollo
 
-
 1. Clonar
 
    ```bash
@@ -20,13 +19,13 @@
    cd star-wars-api
    ```
 
-3. Instalar dependencias
+2. Instalar dependencias
 
    ```bash
    npm install
    ```
 
-4. Modificar las variables de entorno
+3. Modificar las variables de entorno
 
    Revisar `env.example.json` y editar según las instrucciones
 
@@ -34,12 +33,14 @@
    cp env.example.json env.<stage>.json
    ```
 
-5. Seleccionar AWS profile
+4. Seleccionar AWS profile
 
    ```bash
    export AWS_PROFILE=<profile>
    ```
+
 ---
+
 ## Documentación
 
 https://documenter.getpostman.com/view/14272090/2sB34fkg25
@@ -54,22 +55,24 @@ https://github.com/JhuderPalomino/star-wars-api.git
 
 ```Json
 {
-   "nombre": "Jhuder Palomino",
-   "anio_nacimiento": "64BBY",
-   "color_ojos": "dark",
-   "genero": "male",
-   "color_cabello": "grey",
-   "altura": "179",
-   "masa": "120",
-   "color_piel": "fair",
-   "fecha_creacion": "2025-07-10T16:26:56.000Z",
-   "fecha_actualizacion": "2025-07-20T21:17:50.000Z"
+   "name": "Jhuder Palomino",
+   "birth_year": "19BBY",
+   "eye_color": "dark",
+   "gender": "male",
+   "hair_color": "dar",
+   "height": "170",
+   "mass": "70",
+   "skin_color": "fair",
+   "created": "2025-09-07T08:50:51.000Z",
+   "edited": "2025-09-07T08:50:51.000Z"
 }
 ```
 
 2. Para buscar un personaje: GET https://5owr4v14m6.execute-api.us-east-2.amazonaws.com/dev/person/fusionados?name=Leia
 3. Para listar los personajes: GET https://5owr4v14m6.execute-api.us-east-2.amazonaws.com/dev/person/historial?page=1&perPage=10
+
 ---
+
 # Consideraciones
 
 1. El proyecto está enfocado la arquitectura hexagonal
@@ -102,6 +105,7 @@ CREATE TABLE person (
 ```
 
 ## Compilar el proyecto
+
 ```bash
 npm run build
 ```
@@ -116,17 +120,18 @@ npm run test
 
 1. Tener instalado serverless-offline
 
-  ```bash
-   npm i -g serverless-offline
-   ```
-2. Ejecutar: 
-  ```bash
-   npm run start:local
-   ```
+```bash
+ npm i -g serverless-offline
+```
+
+2. Ejecutar:
+
+```bash
+ npm run start:local
+```
 
 ## Despliegue a AWS
 
-   ```bash
-   npm run deploy:dev
-   ```
- 
+```bash
+npm run deploy:dev
+```
