@@ -7,7 +7,7 @@ import { CacheRepository } from '../Domain/CacheRepository';
 export class SearchPersonByName {
   constructor(
     private readonly personRepository: DatabaseRepository,
-    private readonly apiRepository: PersonApiRepository,
+    private readonly personApiRepository: PersonApiRepository,
     private readonly cacheRepository: CacheRepository,
   ) {}
 
@@ -28,7 +28,7 @@ export class SearchPersonByName {
         return personFound.toPrimitives();
       }
 
-      const personApi = await this.apiRepository.findByName(name);
+      const personApi = await this.personApiRepository.findByName(name);
 
       if (!personApi && !personFound) {
         throw new PersonNotFoundException('El personaje no ha sido encontrado');
