@@ -1,8 +1,10 @@
-import { DataBaseRepository } from '../../Domain/DataBaseRepository';
+import { CacheRepository } from '../Domain/CacheRepository';
+import { DatabaseRepository } from '../Domain/DatabaseRepository';
 
 export class PaginatePersons {
   constructor(
-    private readonly personRepository: DataBaseRepository,
+    private readonly personRepository: DatabaseRepository,
+    private readonly cacheRepository: CacheRepository,
   ) {}
 
   async run(page: number, perPage: number) {
@@ -10,18 +12,17 @@ export class PaginatePersons {
 
     if (personsFound) {
       return {
-        data: personsFound.map(person => person.toPrimitivesSpanish()),
+        data: personsFound.map((person) => person.toPrimitives()),
         page: page,
         perPage: perPage,
-        total: personsFound.length
+        total: personsFound.length,
       };
-
     }
     return {
       data: [],
       page: page,
       perPage: perPage,
-      total: 0
+      total: 0,
     };
   }
 }
