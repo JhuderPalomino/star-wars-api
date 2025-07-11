@@ -27,7 +27,7 @@ export class SearchPersonByName {
 
       if (personFound) {
         console.log(`> Retornando ${name.value} de base de datos`);
-        await this.cacheRepository.savePerson(personFound, 30 * 60);
+        await this.cacheRepository.savePerson(name.value, personFound, 30 * 60);
         return personFound.toPrimitives();
       }
 

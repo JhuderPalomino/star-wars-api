@@ -6,8 +6,8 @@ export class RedisPersonRepository extends RedisRepository implements CacheRepos
   async createConnection() {
     await this.connect();
   }
-  async savePerson(person: Person, expireSeconds?: number) {
-    const key = `person:${person.name.value}`;
+  async savePerson(name: string, person: Person, expireSeconds?: number) {
+    const key = `person:${name}`;
     await this.set(key, JSON.stringify(person.toPrimitives()), expireSeconds);
   }
 
