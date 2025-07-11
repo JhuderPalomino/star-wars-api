@@ -79,8 +79,8 @@ functions:
               - Authorization
               - X-Amz-Security-Card
             allowCredentials: false
-  PersonList:
-    handler: dist/Handlers/PersonList.handler
+  ListPersons:
+    handler: dist/Handlers/ListPersons.handler
     timeout: 30
     memorySize: 256
     layers:
