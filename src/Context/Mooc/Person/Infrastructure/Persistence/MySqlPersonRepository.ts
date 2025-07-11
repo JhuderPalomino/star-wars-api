@@ -1,46 +1,42 @@
 import { MySqlRepository } from '../../../../Shared/Infrastructure/Persistence/MySql/MySqlRepository';
-import { DataBaseRepository } from '../../Domain/DataBaseRepository';
+import { DatabaseRepository } from '../../Domain/DatabaseRepository';
 import { PersonName } from '../../Domain/PersonName';
 import { Person } from '../../Domain/Person';
 import { format } from 'date-fns';
-import { RedisFactory } from '../../../../Shared/Infrastructure/Persistence/Redis/RedisFactory';
 
-export class MySqlPersonRepository extends MySqlRepository implements DataBaseRepository {
+export class MySqlPersonRepository extends MySqlRepository implements DatabaseRepository {
   async findByName(name: PersonName): Promise<Person | null> {
     const sql = `
     SELECT *
     FROM person
     WHERE name LIKE ?
+    LIMIT 1
     `;
 
     const values = [`%${name.value}%`];
 
     const response = await this.query(sql, values);
+
     if (!response || response.length === 0) {
       return null;
     }
+    const row = response[0];
 
-    return Person.fromPrimitive({
-      name: response[0].name,
-      edited: response[0].edited,
-      mass: response[0].mass,
-      skin_color: response[0].skin_color,
-      birth_year: response[0].birth_year,
-      eye_color: response[0].eye_color,
-      gender: response[0].gender,
-      hair_color: response[0].hair_color,
-      height: response[0].height,
-      created: response[0].created,
+    return Person.fromPrimitives({
+      name: row.name,
+      edited: row.edited,
+      mass: row.mass,
+      skin_color: row.skin_color,
+      birth_year: row.birth_year,
+      eye_color: row.eye_color,
+      gender: row.gender,
+      hair_color: row.hair_color,
+      height: row.height,
+      created: row.created,
     });
   }
 
   async findAll(page: number, perPage: number): Promise<Person[]> {
-    const redisClient = await RedisFactory.createClient();
-    const cacheKey = `data|${page}|${perPage}`;
-    const cached = await redisClient.get(cacheKey);
-    if (cached) {
-      return JSON.parse(cached).map((person: any) => Person.fromPrimitive(person));
-    }
     const sql = `
     SELECT *
     FROM person
@@ -54,8 +50,7 @@ export class MySqlPersonRepository extends MySqlRepository implements DataBaseRe
       return [];
     }
 
-    await redisClient.set(cacheKey, JSON.stringify(response));
-    return response.map((person: any) => Person.fromPrimitive(person));
+    return response.map((person: any) => Person.fromPrimitives(person));
   }
 
   async save(person: Person): Promise<void> {
