@@ -5,4 +5,4 @@ export interface RedisConfig {
   socket?: {
     connectTimeout: number;
   };
-} 
+}

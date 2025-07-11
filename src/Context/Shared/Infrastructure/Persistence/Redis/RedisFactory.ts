@@ -1,25 +1,23 @@
-import { createClient } from 'redis';
-import { RedisConfigFactory } from './RedisConfigFactory';
-
+import { createClient, RedisClientType } from 'redis';
+import { RedisConfig } from './RedisConfig';
 export class RedisFactory {
-  private static instance: ReturnType<typeof createClient> | null = null;
+  private static instance: RedisClientType<any, any, any> | null = null;
 
-  static async createClient(): Promise<ReturnType<typeof createClient>> {
-    if (!RedisFactory.instance) {
-      const config = RedisConfigFactory.createConfig();
-      
-      const client = createClient({
-        url: `redis://${config.url}`,
-        username: config.username,
-        password: config.password,
-        socket: config.socket,
-      })
-        .on('error', err => console.log('Redis Client Error', err))
-        .on('reconnecting', _arg => console.log('Reconectando'));
-      
-      await client.connect();
-      RedisFactory.instance = client;
+  static getOrCreateClient(config: RedisConfig): RedisClientType<any, any, any> {
+    try {
+      if (!RedisFactory.instance) {
+        RedisFactory.instance = createClient({
+          url: `redis://${config.url}`,
+          username: config.username,
+          password: config.password,
+          socket: config.socket,
+        }).on('error', (err) => console.log('Redis Client Error', err));
+      }
+
+      return RedisFactory.instance;
+    } catch (e) {
+      console.log('> Error instancia redis: ', e);
+      throw new Error('Internal error');
     }
-    return RedisFactory.instance!;
   }
-} 
+}

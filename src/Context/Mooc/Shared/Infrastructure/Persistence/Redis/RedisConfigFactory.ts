@@ -1,4 +1,4 @@
-import { RedisConfig } from './RedisConfig';
+import { RedisConfig } from '../../../../../Shared/Infrastructure/Persistence/Redis/RedisConfig';
 
 export class RedisConfigFactory {
   static createConfig(): RedisConfig {
@@ -11,4 +11,4 @@ export class RedisConfigFactory {
       },
     };
   }
-} 
+}
