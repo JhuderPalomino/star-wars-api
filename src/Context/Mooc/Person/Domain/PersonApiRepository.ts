@@ -1,6 +1,6 @@
 import { Person } from './Person';
 import { PersonName } from './PersonName';
 
-export interface ExternalApiRepository {
+export interface PersonApiRepository {
   findByName(name: PersonName): Promise<Person | null>;
 }

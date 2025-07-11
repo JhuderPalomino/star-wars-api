@@ -45,7 +45,7 @@ export class Person {
     this.edited = edited;
   }
 
-  static fromPrimitive(plainDate: {
+  static fromPrimitives(plainDate: {
     name: string;
     birth_year: string;
     eye_color: string;
@@ -71,18 +71,18 @@ export class Person {
     );
   }
 
-  toPrimitivesSpanish(): any {
+  toPrimitives(): any {
     return {
-      nombre: this.name.value,
-      anio_nacimiento: this.birth_year.value,
-      color_ojos: this.eye_color.value,
-      genero: this.gender.value,
-      color_cabello: this.hair_color.value,
-      altura: this.height.value,
-      masa: this.mass.value,
-      color_piel: this.skin_color.value,
-      fecha_creacion: this.created.value,
-      fecha_actualizacion: this.edited.value,
+      name: this.name.value,
+      birth_year: this.birth_year.value,
+      eye_color: this.eye_color.value,
+      gender: this.gender.value,
+      hair_color: this.hair_color.value,
+      height: this.height.value,
+      mass: this.mass.value,
+      skin_color: this.skin_color.value,
+      created: this.created.value,
+      edited: this.edited.value,
     };
   }
 }

@@ -1,3 +1,3 @@
 import { CommonInterfaceRepository } from './CommonInterfaceRepository';
 
-export interface DataBaseRepository extends CommonInterfaceRepository {}
+export interface DatabaseRepository extends CommonInterfaceRepository {}

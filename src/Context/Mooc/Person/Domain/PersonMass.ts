@@ -2,7 +2,6 @@ import { StringValueObject } from '../../../Shared/Domain/ValueObject/StringValu
 import { InvalidArgumentError } from '../../../Shared/Domain/ValueObject/InvalidArgument';
 
 export class PersonMass extends StringValueObject {
-
   readonly regexMass: RegExp = /^(unknown|\d+([.,]\d+)?)$/;
   constructor(value: string) {
     super(value, true, 'masa');
@@ -10,8 +9,7 @@ export class PersonMass extends StringValueObject {
   }
 
   private ensureFormatMass(input: string) {
-
-    const response = this.regexMass.test(input)
+    const response = this.regexMass.test(input);
 
     if (!response) {
       throw new InvalidArgumentError(
