@@ -8,6 +8,7 @@ import { PersonMass } from './PersonMass';
 import { PersonSkinColor } from './PersonSkinColor';
 import { PersonCreated } from './PersonCreated';
 import { PersonEdited } from './PersonEdited';
+import { PersonPhrase } from "./PersonPhrase";
 
 export class Person {
   readonly name: PersonName;
@@ -20,6 +21,7 @@ export class Person {
   readonly skin_color: PersonSkinColor;
   readonly created: PersonCreated;
   readonly edited: PersonEdited;
+  readonly phrase: PersonPhrase;
 
   constructor(
     name: PersonName,
@@ -32,6 +34,7 @@ export class Person {
     skin_color: PersonSkinColor,
     created: PersonCreated,
     edited: PersonEdited,
+    phrase: PersonPhrase
   ) {
     this.name = name;
     this.height = height;
@@ -43,6 +46,7 @@ export class Person {
     this.gender = gender;
     this.created = created;
     this.edited = edited;
+    this.phrase = phrase;
   }
 
   static fromPrimitives(plainDate: {
@@ -56,6 +60,7 @@ export class Person {
     skin_color: string;
     created: string;
     edited: string;
+    phrase: string;
   }): Person {
     return new Person(
       new PersonName(plainDate.name),
@@ -68,8 +73,11 @@ export class Person {
       new PersonSkinColor(plainDate.skin_color),
       new PersonCreated(plainDate.created),
       new PersonEdited(plainDate.edited),
+      new PersonPhrase(plainDate.phrase)
     );
   }
+
+
 
   toPrimitives(): any {
     return {
@@ -83,6 +91,7 @@ export class Person {
       skin_color: this.skin_color.value,
       created: this.created.value,
       edited: this.edited.value,
+      phrase: this.phrase.value
     };
   }
 }

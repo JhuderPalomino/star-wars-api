@@ -33,6 +33,7 @@ export class MySqlPersonRepository extends MySqlRepository implements DatabaseRe
       hair_color: row.hair_color,
       height: row.height,
       created: row.created,
+      phrase: row.phrase
     });
   }
 
@@ -66,12 +67,13 @@ export class MySqlPersonRepository extends MySqlRepository implements DatabaseRe
       person.skin_color.value,
       format(new Date(person.created.value), FORMAT),
       format(new Date(person.edited.value), FORMAT),
+      person.phrase.value
     ];
 
     const sql = `
     INSERT INTO person
-    (name, birth_year, eye_color, gender, hair_color, height, mass, skin_color, created, edited)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    (name, birth_year, eye_color, gender, hair_color, height, mass, skin_color, created, edited, phrase)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     await this.query(sql, values);

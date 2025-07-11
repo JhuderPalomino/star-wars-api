@@ -26,6 +26,7 @@ export class ExternalPersonApiRepository extends SwapiRepository implements Pers
       hair_color: row.hair_color,
       height: row.height,
       created: row.created,
+      phrase: row.phrase
     });
   }
 }

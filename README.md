@@ -64,7 +64,8 @@ https://github.com/JhuderPalomino/star-wars-api.git
    "mass": "70",
    "skin_color": "fair",
    "created": "2025-09-07T08:50:51.000Z",
-   "edited": "2025-09-07T08:50:51.000Z"
+   "edited": "2025-09-07T08:50:51.000Z",
+   "phrase": ""
 }
 ```
 
@@ -99,6 +100,7 @@ CREATE TABLE person (
     height VARCHAR(10),
     mass VARCHAR(10),
     skin_color VARCHAR(50),
+    phrase TEXT,
     created DATETIME,
     edited DATETIME
 );
