@@ -1,3 +1,5 @@
+import { PersonPhrase } from "./PersonPhrase";
+
 export interface PhraseApiRepository {
-  getPhrase(): Promise<string>;
+  getPhrase(): Promise<PersonPhrase>;
 }

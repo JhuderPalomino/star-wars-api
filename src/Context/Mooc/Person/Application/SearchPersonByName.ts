@@ -40,7 +40,7 @@ export class SearchPersonByName {
       if (personApi) {
         const phraseApi = await this.phraseAPiRepository.getPhrase();
 
-        personApi.setPhrase(new PersonPhrase(phraseApi));
+        personApi.setPhrase(phraseApi);
 
         await this.personRepository.save(personApi);
       }
