@@ -1,8 +1,8 @@
-import { DataBaseRepository } from '../../../../../src/Context/Mooc/Person/Domain/DataBaseRepository';
+import { DatabaseRepository } from '../../../../../src/Context/Mooc/Person/Domain/DatabaseRepository';
 import { Person } from '../../../../../src/Context/Mooc/Person/Domain/Person';
 import { PersonName } from '../../../../../src/Context/Mooc/Person/Domain/PersonName';
 
-export class PersonRepositoryMock implements DataBaseRepository {
+export class PersonRepositoryMock implements DatabaseRepository {
   private readonly saveMock: jest.Mock;
   private readonly findByNameMock: jest.Mock;
   private readonly findAllMock: jest.Mock;
@@ -22,11 +22,10 @@ export class PersonRepositoryMock implements DataBaseRepository {
     this.saveMock(person);
   }
 
-  async findAll(page:number, perPage:number): Promise<Person[]> {
+  async findAll(page: number, perPage: number): Promise<Person[]> {
     this.findAllMock(page, perPage);
-    return []
+    return [];
   }
-
 
   returnOnFindByName(person: Person | null) {
     this.person = person;
