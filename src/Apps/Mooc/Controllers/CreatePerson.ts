@@ -3,22 +3,22 @@ import { Controller } from './Controller';
 import { MySqlPersonRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/MySqlPersonRepository';
 import { MySqlFactory } from '../../../Context/Shared/Infrastructure/Persistence/MySql/MySqlFactory';
 import { MySqlConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/MySql/MySqlConfigFactory';
-import { PersonCreator } from '../../../Context/Mooc/Person/Application/Create/PersonCreator';
+import { PersonCreator } from '../../../Context/Mooc/Person/Application/PersonCreator';
 import { BuildResponse } from '../../../Context/Mooc/Shared/Infrastructure/Response/BuildResponse';
 import httpStatus from 'http-status';
 
 type CreatePersonRequest = Request & {
   body: {
-    nombre: string;
-    anio_nacimiento: string;
-    color_ojos: string;
-    genero: string;
-    color_cabello: string;
-    altura: string;
-    masa: string;
-    color_piel: string;
-    fecha_creacion: string;
-    fecha_actualizacion: string;
+    name: string;
+    birth_year: string;
+    eye_color: string;
+    gender: string;
+    hair_color: string;
+    height: string;
+    mass: string;
+    skin_color: string;
+    created: string;
+    edited: string;
   };
 };
 
@@ -36,16 +36,16 @@ export class CreatePerson implements Controller {
       );
       const personCreator = new PersonCreator(personRepository);
       const response = await personCreator.run(
-        req.body.nombre,
-        req.body.anio_nacimiento,
-        req.body.color_ojos,
-        req.body.genero,
-        req.body.color_cabello,
-        req.body.altura,
-        req.body.masa,
-        req.body.color_piel,
-        req.body.fecha_creacion,
-        req.body.fecha_actualizacion,
+        req.body.name,
+        req.body.birth_year,
+        req.body.eye_color,
+        req.body.gender,
+        req.body.hair_color,
+        req.body.height,
+        req.body.mass,
+        req.body.skin_color,
+        req.body.created,
+        req.body.edited,
       );
       return BuildResponse.run(response, res);
     } catch (e: Error | any) {

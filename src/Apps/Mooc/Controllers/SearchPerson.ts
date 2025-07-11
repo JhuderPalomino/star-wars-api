@@ -4,12 +4,15 @@ import { BuildResponse } from '../../../Context/Mooc/Shared/Infrastructure/Respo
 import { MySqlPersonRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/MySqlPersonRepository';
 import { MySqlFactory } from '../../../Context/Shared/Infrastructure/Persistence/MySql/MySqlFactory';
 import { MySqlConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/MySql/MySqlConfigFactory';
-import { SearchPersonByName } from '../../../Context/Mooc/Person/Application/Search/SearchPersonByName';
+import { SearchPersonByName } from '../../../Context/Mooc/Person/Application/SearchPersonByName';
 import { PersonName } from '../../../Context/Mooc/Person/Domain/PersonName';
-import { ExternalPersonApiRepository } from '../../../Context/Mooc/Person/Infrastructure/ExternalApi/ExternalPersonApiRepository';
+import { ExternalPersonApiRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/ExternalPersonApiRepository';
 import { SwapiFactory } from '../../../Context/Shared/Infrastructure/Persistence/Swapi/SwapiFactory';
 import { SwapiConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/Swapi/SwapiConfigFactory';
 import httpStatus from 'http-status';
+import { RedisPersonRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/RedisPersonRepository';
+import { RedisFactory } from '../../../Context/Shared/Infrastructure/Persistence/Redis/RedisFactory';
+import { RedisConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/Redis/RedisConfigFactory';
 
 export class SearchPerson implements Controller {
   async run(req: Request, res: Response): Promise<void> {
@@ -20,7 +23,16 @@ export class SearchPerson implements Controller {
       const personExternalRepository = new ExternalPersonApiRepository(
         SwapiFactory.createClient(SwapiConfigFactory.createConfig()),
       );
-      const searchPersonByName = new SearchPersonByName(personRepository, personExternalRepository);
+
+      const cacheRepository = new RedisPersonRepository(
+        RedisFactory.getOrCreateClient(RedisConfigFactory.createConfig()),
+      );
+
+      const searchPersonByName = new SearchPersonByName(
+        personRepository,
+        personExternalRepository,
+        cacheRepository,
+      );
       const response = await searchPersonByName.run(new PersonName(req.query.name || ''));
       return BuildResponse.run(response, res);
     } catch (e: Error | any) {
