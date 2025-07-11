@@ -20,7 +20,9 @@ export class RedisPersonRepository extends RedisRepository implements CacheRepos
 
   async savePageData(page: number, perPage: number, personsArray: Person[]) {
     const key = `data|${page}|${perPage}`;
-    const data = personsArray.map((person) => (person.toPrimitives ? person.toPrimitives() : person));
+    const data = personsArray.map((person) =>
+      person.toPrimitives ? person.toPrimitives() : person,
+    );
     await this.set(key, JSON.stringify(data));
   }
 

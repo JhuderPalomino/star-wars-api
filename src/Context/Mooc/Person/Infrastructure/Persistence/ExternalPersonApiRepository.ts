@@ -9,10 +9,6 @@ export class ExternalPersonApiRepository extends SwapiRepository implements Pers
     if (!response || response.length === 0) {
       return null;
     }
-
-    if (!response || response.length === 0) {
-      return null;
-    }
     const row = response[0];
 
     return Person.fromPrimitives({
@@ -26,7 +22,7 @@ export class ExternalPersonApiRepository extends SwapiRepository implements Pers
       hair_color: row.hair_color,
       height: row.height,
       created: row.created,
-      phrase: row.phrase
+      phrase: row.phrase,
     });
   }
 }

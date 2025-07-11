@@ -1,15 +1,15 @@
 import { PaginatePersons } from '../../../../../src/Context/Mooc/Person/Application/PaginatePersons';
 import { PersonRepositoryMock } from '../__mocks__/PersonRepositoryMock';
 import { PersonMother } from '../Domain/PersonMother';
-import { CacheRepositoryMock } from "../__mocks__/CacheRepositoryMock";
+import { CacheRepositoryMock } from '../__mocks__/CacheRepositoryMock';
 
 let personRepository: PersonRepositoryMock;
 let paginatePersons: PaginatePersons;
-let cacheRepository: CacheRepositoryMock
+let cacheRepository: CacheRepositoryMock;
 
 beforeAll(() => {
   personRepository = new PersonRepositoryMock();
-  cacheRepository = new CacheRepositoryMock()
+  cacheRepository = new CacheRepositoryMock();
   paginatePersons = new PaginatePersons(personRepository, cacheRepository);
 });
 

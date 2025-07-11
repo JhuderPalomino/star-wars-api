@@ -27,6 +27,7 @@ describe('Crear nuevos personajes', () => {
           newPersonPrimitive.skin_color,
           newPersonPrimitive.created,
           newPersonPrimitive.edited,
+          newPersonPrimitive.phrase,
         );
         repository.assertSaveHaveBeenCalledWith(newPerson);
         expect(response).toMatchObject(newPersonPrimitive);
@@ -48,6 +49,7 @@ describe('Crear nuevos personajes', () => {
             newPerson.skin_color,
             newPerson.created,
             newPerson.edited,
+            newPerson.phrase,
           ),
         ).rejects.toThrow(
           'El campo año_nacimiento tiene que tener el formato [xxBBY, xxABY, unknown]',
@@ -72,6 +74,7 @@ describe('Crear nuevos personajes', () => {
           newPerson.skin_color,
           newPerson.created,
           newPerson.edited,
+          newPerson.phrase,
         ),
       ).rejects.toThrow(`El personaje ${newPerson.name} ya está registrado`);
     });

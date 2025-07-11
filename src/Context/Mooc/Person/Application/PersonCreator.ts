@@ -17,7 +17,7 @@ export class PersonCreator {
     skin_color: string,
     created: string,
     edited: string,
-    phrase: string
+    phrase: string,
   ) {
     const newPerson = Person.fromPrimitives({
       name: name,
@@ -30,7 +30,7 @@ export class PersonCreator {
       skin_color: skin_color,
       mass: mass,
       edited: edited,
-      phrase: phrase
+      phrase: phrase,
     });
     const personFound = await this.personRepository.findByName(new PersonName(name));
 

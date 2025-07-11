@@ -2,20 +2,27 @@ import { PersonName } from '../../../../../src/Context/Mooc/Person/Domain/Person
 import { SearchPersonByName } from '../../../../../src/Context/Mooc/Person/Application/SearchPersonByName';
 import { PersonRepositoryMock } from '../__mocks__/PersonRepositoryMock';
 import { PersonMother } from '../Domain/PersonMother';
-import { PersonApiRepositoryMock } from "../__mocks__/PersonApiRepositoryMock";
-import { CacheRepositoryMock } from "../__mocks__/CacheRepositoryMock";
+import { PersonApiRepositoryMock } from '../__mocks__/PersonApiRepositoryMock';
+import { CacheRepositoryMock } from '../__mocks__/CacheRepositoryMock';
+import { PhraseApiRepositoryMock } from '../__mocks__/PhraseApiRepositoryMock';
 
-let cacheRepository: CacheRepositoryMock
+let cacheRepository: CacheRepositoryMock;
 let personApiRepository: PersonApiRepositoryMock;
+let phraseApiRepository: PhraseApiRepositoryMock;
 let personRepository: PersonRepositoryMock;
 let searchPersonByName: SearchPersonByName;
-
 
 beforeAll(() => {
   personApiRepository = new PersonApiRepositoryMock();
   personRepository = new PersonRepositoryMock();
-  cacheRepository = new CacheRepositoryMock()
-  searchPersonByName = new SearchPersonByName(personRepository, personApiRepository, cacheRepository);
+  phraseApiRepository = new PhraseApiRepositoryMock();
+  cacheRepository = new CacheRepositoryMock();
+  searchPersonByName = new SearchPersonByName(
+    personRepository,
+    personApiRepository,
+    phraseApiRepository,
+    cacheRepository,
+  );
 });
 
 describe('Recuperar personaje por el nombre', () => {

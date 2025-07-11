@@ -11,8 +11,8 @@ export class CacheRepositoryMock implements CacheRepository {
   private persons: Person[] = [];
 
   constructor() {
-        this.findByNameMock = jest.fn();
-    }
+    this.findByNameMock = jest.fn();
+  }
 
   async findByName(name: string): Promise<string | null> {
     this.findByNameMock(name);
@@ -50,11 +50,11 @@ export class CacheRepositoryMock implements CacheRepository {
     expect(this.findByNameMock).toHaveBeenCalled();
   }
 
-    createConnection(): Promise<void> {
-        return Promise.resolve(undefined);
-    }
+  createConnection(): Promise<void> {
+    return Promise.resolve(undefined);
+  }
 
-    quitConnection(): Promise<void> {
-        return Promise.resolve(undefined);
-    }
+  quitConnection(): Promise<void> {
+    return Promise.resolve(undefined);
+  }
 }

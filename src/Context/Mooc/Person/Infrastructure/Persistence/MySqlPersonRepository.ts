@@ -33,7 +33,7 @@ export class MySqlPersonRepository extends MySqlRepository implements DatabaseRe
       hair_color: row.hair_color,
       height: row.height,
       created: row.created,
-      phrase: row.phrase
+      phrase: row.phrase,
     });
   }
 
@@ -67,7 +67,7 @@ export class MySqlPersonRepository extends MySqlRepository implements DatabaseRe
       person.skin_color.value,
       format(new Date(person.created.value), FORMAT),
       format(new Date(person.edited.value), FORMAT),
-      person.phrase.value
+      person.phrase.value,
     ];
 
     const sql = `

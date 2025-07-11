@@ -47,7 +47,7 @@ export class CreatePerson implements Controller {
         req.body.skin_color,
         req.body.created,
         req.body.edited,
-        req.body.phrase
+        req.body.phrase,
       );
       return BuildResponse.run(response, res);
     } catch (e: Error | any) {

@@ -3,11 +3,14 @@ import { PersonApiRepository } from '../Domain/PersonApiRepository';
 import { PersonName } from '../Domain/PersonName';
 import { PersonNotFoundException } from '../Domain/PersonNotFoundException';
 import { CacheRepository } from '../Domain/CacheRepository';
+import { PhraseApiRepository } from '../Domain/PhraseApiRepository';
+import { PersonPhrase } from '../Domain/PersonPhrase';
 
 export class SearchPersonByName {
   constructor(
     private readonly personRepository: DatabaseRepository,
     private readonly personApiRepository: PersonApiRepository,
+    private readonly phraseAPiRepository: PhraseApiRepository,
     private readonly cacheRepository: CacheRepository,
   ) {}
 
@@ -34,7 +37,13 @@ export class SearchPersonByName {
         throw new PersonNotFoundException('El personaje no ha sido encontrado');
       }
 
-      personApi && (await this.personRepository.save(personApi));
+      if (personApi) {
+        const phraseApi = await this.phraseAPiRepository.getPhrase();
+
+        personApi.setPhrase(new PersonPhrase(phraseApi));
+
+        await this.personRepository.save(personApi);
+      }
 
       return personApi?.toPrimitives();
     } finally {

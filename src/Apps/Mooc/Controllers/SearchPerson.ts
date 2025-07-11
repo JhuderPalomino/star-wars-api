@@ -13,6 +13,9 @@ import httpStatus from 'http-status';
 import { RedisPersonRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/RedisPersonRepository';
 import { RedisFactory } from '../../../Context/Shared/Infrastructure/Persistence/Redis/RedisFactory';
 import { RedisConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/Redis/RedisConfigFactory';
+import { ExternalPhraseApiRepository } from '../../../Context/Mooc/Person/Infrastructure/Persistence/ExternalPhraseApiRepository';
+import { QuotaFactory } from '../../../Context/Shared/Infrastructure/Persistence/Quota/QuotaFactory';
+import { QuotaConfigFactory } from '../../../Context/Mooc/Shared/Infrastructure/Persistence/Quota/QuotaConfigFactory';
 
 export class SearchPerson implements Controller {
   async run(req: Request, res: Response): Promise<void> {
@@ -24,6 +27,10 @@ export class SearchPerson implements Controller {
         SwapiFactory.createClient(SwapiConfigFactory.createConfig()),
       );
 
+      const phraseExternalRepository = new ExternalPhraseApiRepository(
+        QuotaFactory.createClient(QuotaConfigFactory.createConfig()),
+      );
+
       const cacheRepository = new RedisPersonRepository(
         RedisFactory.getOrCreateClient(RedisConfigFactory.createConfig()),
       );
@@ -31,6 +38,7 @@ export class SearchPerson implements Controller {
       const searchPersonByName = new SearchPersonByName(
         personRepository,
         personExternalRepository,
+        phraseExternalRepository,
         cacheRepository,
       );
       const response = await searchPersonByName.run(new PersonName(req.query.name || ''));

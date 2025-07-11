@@ -9,6 +9,7 @@ import { PersonMassMother } from './PersonMassMother';
 import { PersonSkinColorMother } from './PersonSkinColorMother';
 import { PersonCreatedMother } from './PersonCreatedMother';
 import { PersonEditedMother } from './PersonEditedMother';
+import { PersonPhraseMother } from './PersonPhraseMotther';
 
 export class PersonMother {
   static random(): Person {
@@ -23,6 +24,7 @@ export class PersonMother {
       PersonSkinColorMother.random(),
       PersonCreatedMother.random(),
       PersonEditedMother.random(),
+      PersonPhraseMother.random(),
     );
   }
 
@@ -38,6 +40,7 @@ export class PersonMother {
       skin_color: PersonSkinColorMother.random().value,
       created: PersonCreatedMother.random().value,
       edited: PersonEditedMother.random().value,
+      phrase: PersonPhraseMother.random(),
     };
   }
 }
