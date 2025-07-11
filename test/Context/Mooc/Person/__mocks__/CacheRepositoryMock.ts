@@ -12,14 +12,15 @@ export class CacheRepositoryMock implements CacheRepository {
 
   constructor() {
     this.findByNameMock = jest.fn();
+    this.savePersonMock = jest.fn()
   }
 
   async findByName(name: string): Promise<string | null> {
     this.findByNameMock(name);
-    return this.person ? JSON.stringify(this.person.toPrimitives()) : null;
+    return this.person ? this.person.toPrimitives() : null;
   }
 
-  async savePerson(person: Person, expireSeconds?: number): Promise<void> {
+  async savePerson(name: string, person: Person, expireSeconds?: number): Promise<void> {
     this.savePersonMock(person, expireSeconds);
     this.person = person;
   }
@@ -35,7 +36,7 @@ export class CacheRepositoryMock implements CacheRepository {
   }
 
   returnOnFindByName(person: Person | null) {
-    this.person = person;
+    return person ? person.toPrimitives(): null
   }
 
   returnOnFindPageData(persons: Person[]) {

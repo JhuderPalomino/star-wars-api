@@ -5,6 +5,7 @@ import { PersonMother } from '../Domain/PersonMother';
 import { PersonApiRepositoryMock } from '../__mocks__/PersonApiRepositoryMock';
 import { CacheRepositoryMock } from '../__mocks__/CacheRepositoryMock';
 import { PhraseApiRepositoryMock } from '../__mocks__/PhraseApiRepositoryMock';
+import { PersonPhrase } from '../../../../../src/Context/Mooc/Person/Domain/PersonPhrase';
 
 let cacheRepository: CacheRepositoryMock;
 let personApiRepository: PersonApiRepositoryMock;
@@ -25,18 +26,20 @@ beforeAll(() => {
   );
 });
 
-describe('Recuperar personaje por el nombre', () => {
-  describe('El personaje no existe en la base de datos pero si existe en la api', () => {
-    it('Debería retornar un personaje con sus atributos traducidos', async () => {
+describe('Buscar personaje por el nombre', () => {
+  describe('Cuando el personaje no está en caché ni en la base de datos, pero sí existe en la API externa', () => {
+    it('Debería retornar un personaje con sus atributos', async () => {
       const person = PersonMother.random();
+      cacheRepository.returnOnFindByName(null);
       personRepository.returnOnFindByName(null);
       personApiRepository.returnOnFindByName(person);
+      phraseApiRepository.returnOnGetPhrase(new PersonPhrase(person.phrase.value))
       const response = await searchPersonByName.run(new PersonName('Jhuder'));
       expect(response).toMatchObject(person.toPrimitives());
     });
   });
 
-  describe('El personaje no existe en la base de datos ni en la api', () => {
+  describe('Cuando el personaje no está en caché, base de datos ni API externa', () => {
     it('Debería retornar una excepción con el mensaje (El personaje no ha sido encontrado)', async () => {
       personRepository.returnOnFindByName(null);
       personApiRepository.returnOnFindByName(null);

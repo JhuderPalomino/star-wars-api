@@ -38,4 +38,9 @@ export class PersonRepositoryMock implements DatabaseRepository {
   assertFindByName() {
     expect(this.findByNameMock).toHaveBeenCalled();
   }
+
+  assertSaveHaveBeenCalledTimes(expectedTimes: number): void {
+    expect(this.saveMock).toHaveBeenCalledTimes(expectedTimes);
+  }
+
 }

@@ -13,4 +13,8 @@ export class PhraseApiRepositoryMock implements PhraseApiRepository {
     this.getPhraseMock();
     return this.phrase;
   }
+
+  returnOnGetPhrase(phrase: PersonPhrase) {
+    this.phrase = phrase;
+  }
 }
