@@ -29,11 +29,19 @@ export class Server {
         .header('X-Frame-Options', 'SAMEORIGIN')
         .header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
         .header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS,PATCH');
-      if (error.name === this.ROUTE_ERROR || error.name === this.METHOD_ERROR) {
+
+      if (error.name === this.ROUTE_ERROR) {
         res.status(HTTP.FORBIDDEN);
         res.json({
           errors: {
-            message: 'Not authorized',
+            message: 'Route not found',
+          },
+        });
+      } else if (error.name === this.METHOD_ERROR) {
+        res.status(HTTP.METHOD_NOT_ALLOWED);
+        res.json({
+          errors: {
+            message: 'Method not allowed',
           },
         });
       } else {
