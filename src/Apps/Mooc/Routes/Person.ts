@@ -1,9 +1,9 @@
 import { API } from 'lambda-api';
 import { SearchPerson } from '../Controllers/SearchPerson';
 import { CreatePerson } from '../Controllers/CreatePerson';
-import { ListPersons } from "../Controllers/ListPersons";
+import { ListPersons } from '../Controllers/ListPersons';
 
-const register = (api: API): void => {
+const pathPerson = (api: API): void => {
   const searchPerson = new SearchPerson();
   const createPerson = new CreatePerson();
   const listPersons = new ListPersons();
@@ -13,4 +13,4 @@ const register = (api: API): void => {
   api.get('/historial', listPersons.run);
 };
 
-export default register;
+export default pathPerson;
