@@ -1,14 +1,16 @@
-import { PaginatePersons } from '../../../../../../src/Context/Mooc/Person/Application/Paginate/PaginatePersons';
-import { ExternalApiRepositoryMock } from '../../__mocks__/ExternalApiRepositoryMock';
-import { PersonRepositoryMock } from '../../__mocks__/PersonRepositoryMock';
-import { PersonMother } from '../../Domain/PersonMother';
+import { PaginatePersons } from '../../../../../src/Context/Mooc/Person/Application/PaginatePersons';
+import { PersonRepositoryMock } from '../__mocks__/PersonRepositoryMock';
+import { PersonMother } from '../Domain/PersonMother';
+import { CacheRepositoryMock } from "../__mocks__/CacheRepositoryMock";
 
 let personRepository: PersonRepositoryMock;
 let paginatePersons: PaginatePersons;
+let cacheRepository: CacheRepositoryMock
 
 beforeAll(() => {
   personRepository = new PersonRepositoryMock();
-  paginatePersons = new PaginatePersons(personRepository);
+  cacheRepository = new CacheRepositoryMock()
+  paginatePersons = new PaginatePersons(personRepository, cacheRepository);
 });
 
 describe('Paginar personajes', () => {
@@ -22,10 +24,10 @@ describe('Paginar personajes', () => {
       const response = await paginatePersons.run(page, perPage);
 
       expect(response).toEqual({
-        data: persons.map(p => p.toPrimitivesSpanish()),
+        data: persons.map((p) => p.toPrimitives()),
         page,
         perPage,
-        total: persons.length
+        total: persons.length,
       });
       expect(personRepository.findAll).toHaveBeenCalledWith(page, perPage);
     });
@@ -41,9 +43,9 @@ describe('Paginar personajes', () => {
         data: [],
         page,
         perPage,
-        total: 0
+        total: 0,
       });
       expect(personRepository.findAll).toHaveBeenCalledWith(page, perPage);
     });
   });
-}); 
+});

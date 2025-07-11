@@ -1,17 +1,21 @@
-import { PersonName } from '../../../../../../src/Context/Mooc/Person/Domain/PersonName';
-import { SearchPersonByName } from '../../../../../../src/Context/Mooc/Person/Application/Search/SearchPersonByName';
-import { ExternalApiRepositoryMock } from '../../__mocks__/ExternalApiRepositoryMock';
-import { PersonRepositoryMock } from '../../__mocks__/PersonRepositoryMock';
-import { PersonMother } from '../../Domain/PersonMother';
+import { PersonName } from '../../../../../src/Context/Mooc/Person/Domain/PersonName';
+import { SearchPersonByName } from '../../../../../src/Context/Mooc/Person/Application/SearchPersonByName';
+import { PersonRepositoryMock } from '../__mocks__/PersonRepositoryMock';
+import { PersonMother } from '../Domain/PersonMother';
+import { PersonApiRepositoryMock } from "../__mocks__/PersonApiRepositoryMock";
+import { CacheRepositoryMock } from "../__mocks__/CacheRepositoryMock";
 
-let externalApiRepository: ExternalApiRepositoryMock;
+let cacheRepository: CacheRepositoryMock
+let personApiRepository: PersonApiRepositoryMock;
 let personRepository: PersonRepositoryMock;
 let searchPersonByName: SearchPersonByName;
 
+
 beforeAll(() => {
-  externalApiRepository = new ExternalApiRepositoryMock();
+  personApiRepository = new PersonApiRepositoryMock();
   personRepository = new PersonRepositoryMock();
-  searchPersonByName = new SearchPersonByName(personRepository, externalApiRepository);
+  cacheRepository = new CacheRepositoryMock()
+  searchPersonByName = new SearchPersonByName(personRepository, personApiRepository, cacheRepository);
 });
 
 describe('Recuperar personaje por el nombre', () => {
@@ -19,16 +23,16 @@ describe('Recuperar personaje por el nombre', () => {
     it('Debería retornar un personaje con sus atributos traducidos', async () => {
       const person = PersonMother.random();
       personRepository.returnOnFindByName(null);
-      externalApiRepository.returnOnFindByName(person);
+      personApiRepository.returnOnFindByName(person);
       const response = await searchPersonByName.run(new PersonName('Jhuder'));
-      expect(response).toMatchObject(person.toPrimitivesSpanish());
+      expect(response).toMatchObject(person.toPrimitives());
     });
   });
 
   describe('El personaje no existe en la base de datos ni en la api', () => {
     it('Debería retornar una excepción con el mensaje (El personaje no ha sido encontrado)', async () => {
       personRepository.returnOnFindByName(null);
-      externalApiRepository.returnOnFindByName(null);
+      personApiRepository.returnOnFindByName(null);
       await expect(searchPersonByName.run(new PersonName('Jhuder'))).rejects.toThrow(
         'El personaje no ha sido encontrado',
       );
